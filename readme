@@ -22,3 +22,12 @@ can help you out.
 
 It's been a great semester, I hope your classes have been going well,
 and best of luck for your finals and futures!
+
+
+Create new folder for your project
+In gitbash, cd to that folder
+Clone this repo to that folder to set up the project.
+Change, add, or delete files, just don't change folders.
+Push your changes to this repo (don't create new forks please)
+Before making changes to the project, please be sure to 
+pull from this repo first
