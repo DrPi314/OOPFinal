@@ -1,42 +1,46 @@
 package employee;
 
 public class Employee {
-	private long id;
-	private String name;
 
-	public Employee(int id, String name) {
-		this.id = id;
-		this.name = name;
+	private NewHire newEmp;
+	private Salary salary;
+	private Hourly time;
+
+	// constructor for new employee
+	public Employee(NewHire newEmp, Hourly time, Salary salary) {
+		this.newEmp = newEmp;
+		this.time = time;
+		this.salary = salary;
+
 	}
 
-	public Employee() {
-
-	}
-// constructor for new employee
-	public Employee(String name) {
-		this.name = name;
-		id = (int) ((Math.random() * 1000000000));
+	public NewHire getNewEmp() {
+		return newEmp;
 	}
 
-	public long getId() {
-		return id;
+	public void setNewEmp(NewHire newEmp) {
+		this.newEmp = newEmp;
 	}
 
-	public void setID(int iD) {
-		id = iD;
+	public Salary getSalary() {
+		return salary;
 	}
 
-	public String getName() {
-		return name;
+	public void setSalary(Salary salary) {
+		this.salary = salary;
 	}
 
-	public void setName(String name) {
-		this.name = name;
+	public Hourly getTime() {
+		return time;
+	}
+
+	public void setTime(Hourly time) {
+		this.time = time;
 	}
 
 	@Override
 	public String toString() {
-		return "Employee [ name=" + name + "]";
+		return "Employee [newEmp=" + newEmp + ", salary=" + salary + ", time=" + time + "]";
 	}
 
 }
