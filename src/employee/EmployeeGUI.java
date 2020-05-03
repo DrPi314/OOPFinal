@@ -39,7 +39,7 @@ public class EmployeeGUI extends JFrame implements ActionListener {
 	private String[] genderOptions = { "Other", "Male", "Female" };
 	private JComboBox idComboBox;
 
-	// method for the ArrayId. we will use this method inside idCombox
+	// this method will return arraylist for the IDs
 	private ArrayList<Integer> myIDs() {
 		ArrayList<Integer> numbers = new ArrayList<Integer>(5);
 		numbers.add(1);
@@ -51,6 +51,7 @@ public class EmployeeGUI extends JFrame implements ActionListener {
 		return (numbers);
 	}
 
+	// Assign ArrayId to to myIDS arrayList so we can pass it to idComboBox
 	Integer[] arrayID = myIDs().toArray(new Integer[myIDs().size()]);
 
 	/**
@@ -81,6 +82,7 @@ public class EmployeeGUI extends JFrame implements ActionListener {
 	public EmployeeGUI() {
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 450, 300);
+		setLocationRelativeTo(null);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
@@ -187,7 +189,7 @@ public class EmployeeGUI extends JFrame implements ActionListener {
 		panel_3.add(pane, BorderLayout.CENTER);
 	}
 
-	// handle all actions for buttons
+	// this method will handle all actions for buttons
 
 	public void actionPerformed(ActionEvent e) {
 		String callingBtn = e.getActionCommand();
@@ -198,7 +200,7 @@ public class EmployeeGUI extends JFrame implements ActionListener {
 
 			for (int i = 0; i < employeesList.size(); i++) {
 				console.append("******** Employee " + (i + 1) + " **********\n");
-				console.append("" + employeesList.get(i));
+				console.append("" + employeesList.get(i) + "\n");
 			}
 		} else if (callingBtn.equalsIgnoreCase("Submit"))
 
@@ -208,7 +210,7 @@ public class EmployeeGUI extends JFrame implements ActionListener {
 		}
 	}
 
-	// method that will match  yes and no to  true and false respectively 
+	// method that will match yes and no to true and false respectively
 	public boolean checkOptions(String yes) {
 		if (yes.equalsIgnoreCase("Yes"))
 			return true;
@@ -225,6 +227,16 @@ public class EmployeeGUI extends JFrame implements ActionListener {
 
 	}
 
+	// Define the method that check if id is took or not.
+	public int getId(int id) {
+		for (int i = 0; i < arrayID.length; i++) {
+			if (arrayID[i].equals(id)) {
+				return i;
+			}
+		}
+		return -1;
+	}
+
 	// Define the method create newEmployee
 	public void newEmployee() {
 		// getting inputs from swing and assigned into variables
@@ -233,6 +245,8 @@ public class EmployeeGUI extends JFrame implements ActionListener {
 			String lastName = lastNameTextField.getText();
 			String idString = idComboBox.getSelectedItem().toString();
 			int id = Integer.parseInt(idString);
+			// this variable will hold what getId return
+			int checkId = getId(id);
 			String gender = genderBox.getSelectedItem().toString();
 			String department = departmentTextField.getText();
 			String dateStart = yearTextField.getText();
@@ -245,8 +259,9 @@ public class EmployeeGUI extends JFrame implements ActionListener {
 			boolean error = false;
 			String empty = "";
 			if (firstName.equals("") || lastName.equals(empty) || department.equals(empty)) {
-				empty += " a text field is Empty";
+
 				error = true;
+				JOptionPane.showMessageDialog(this, "Empty space", "Errors Occured", JOptionPane.ERROR_MESSAGE);
 			}
 			if (age == 0) {
 				error = true;
@@ -258,7 +273,7 @@ public class EmployeeGUI extends JFrame implements ActionListener {
 						JOptionPane.ERROR_MESSAGE);
 			}
 
-			// this checks that the input of textfield is letters.
+			// this checks that the input of TextField is letters.
 			String regex = "[a-zA-Z]+";
 			Pattern pattern = Pattern.compile(regex);
 			Matcher matcher = pattern.matcher(firstName);
@@ -275,6 +290,13 @@ public class EmployeeGUI extends JFrame implements ActionListener {
 			boolean result3 = matcher3.matches();
 			System.out.println(result3);
 
+			// deciding if ID is took or no, based on what getID method return
+			if (checkId == -1) {
+				empty += "Sorry ID has been toke!\n";
+				error = true;
+
+			}
+			// validation of TextField (letters only)
 			if (!(result) || !(result2) || !(result3)) {
 
 				error = true;
@@ -290,20 +312,25 @@ public class EmployeeGUI extends JFrame implements ActionListener {
 			if (error) {
 				JOptionPane.showMessageDialog(this, empty, "Errors Occured", JOptionPane.ERROR_MESSAGE);
 
-			} else {
-				// adding new passenger to the array
+			}
+
+			else {
+				// adding new Employee to the arrayList
 				NewHire newEmp = new NewHire(firstName, lastName, gender, department, dateHolder, id, age);
 				Volunter volunterObject = new Volunter(volunter);
 				Hourly hourly = new Hourly(totalHours, volunterObject);
 				Salary salary = new Salary(rate, totalHours, volunterObject);
 				Employee emp = new Employee(newEmp, hourly, salary);
 				employeesList.add(emp);
+				arrayID[checkId] = -1;
 				console.append("Reservation completed for " + firstName + "!\n");
+				JOptionPane.showMessageDialog(this, "Employee has been add", "Success",
+						JOptionPane.INFORMATION_MESSAGE);
 
 			}
+
 		} catch (Exception e) {
 			e.getMessage();
-			System.out.println(e);
 			JOptionPane.showMessageDialog(this, "Invalid input", "Errors Occured", JOptionPane.ERROR_MESSAGE);
 		}
 
