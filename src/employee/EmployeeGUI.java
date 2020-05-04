@@ -1,5 +1,6 @@
 package employee;
 
+import java.util.*;
 import java.awt.BorderLayout;
 import java.awt.EventQueue;
 
@@ -11,9 +12,12 @@ import java.awt.FlowLayout;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JTextField;
+import javax.swing.SpinnerDateModel;
+
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.*;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
@@ -21,6 +25,7 @@ import java.util.Date;
 import javax.swing.JComboBox;
 import javax.swing.JTextArea;
 import javax.swing.JScrollPane;
+import javax.swing.JSpinner;
 import javax.swing.JButton;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -38,6 +43,9 @@ public class EmployeeGUI extends JFrame implements ActionListener {
 	private String[] options = { "YES", "NO" };
 	private String[] genderOptions = { "Other", "Male", "Female" };
 	private JComboBox idComboBox;
+	private JSpinner spin;
+	private Date todaysDate = new Date();
+	private PrintWriter output;
 
 	// this method will return arraylist for the IDs
 	private ArrayList<Integer> myIDs() {
@@ -128,12 +136,11 @@ public class EmployeeGUI extends JFrame implements ActionListener {
 
 		JLabel startDateLabel = new JLabel("Start Date");
 		panel.add(startDateLabel);
-
-		yearTextField = new JTextField();
-		panel.add(yearTextField);
-		yearTextField.setColumns(10);
-		// Set the content place holder for depature Date.
-		yearTextField.setText("MM/DD/YYYY");
+		// Creating spinner that will the date and increment by a day
+		spin = new JSpinner(new SpinnerDateModel(todaysDate, null, null, Calendar.DAY_OF_MONTH));
+		JSpinner.DateEditor dateEditor = new JSpinner.DateEditor(spin, "MM/dd/yyyy");
+		spin.setEditor(dateEditor);
+		panel.add(spin);
 
 		JLabel ageLabel = new JLabel("Age");
 		panel.add(ageLabel);
@@ -249,7 +256,7 @@ public class EmployeeGUI extends JFrame implements ActionListener {
 			int checkId = getId(id);
 			String gender = genderBox.getSelectedItem().toString();
 			String department = departmentTextField.getText();
-			String dateStart = yearTextField.getText();
+			Date dateStart = (Date) spin.getValue();
 			int age = validAge(Integer.parseInt(ageTextField.getText()));
 			String yes_no = (box.getSelectedItem().toString());
 			boolean volunter = checkOptions(yes_no);
@@ -278,17 +285,14 @@ public class EmployeeGUI extends JFrame implements ActionListener {
 			Pattern pattern = Pattern.compile(regex);
 			Matcher matcher = pattern.matcher(firstName);
 			boolean result = matcher.matches();
-			System.out.println(result);
 			String regex2 = "[a-zA-Z]+";
 			Pattern pattern2 = Pattern.compile(regex2);
 			Matcher matcher2 = pattern2.matcher(lastName);
 			boolean result2 = matcher2.matches();
-			System.out.println(result2);
 			String regex3 = "[a-zA-Z]+";
 			Pattern pattern3 = Pattern.compile(regex3);
 			Matcher matcher3 = pattern3.matcher(department);
 			boolean result3 = matcher3.matches();
-			System.out.println(result3);
 
 			// deciding if ID is took or no, based on what getID method return
 			if (checkId == -1) {
@@ -302,12 +306,6 @@ public class EmployeeGUI extends JFrame implements ActionListener {
 				error = true;
 				JOptionPane.showMessageDialog(this, "Only Letters", "Errors Occured", JOptionPane.ERROR_MESSAGE);
 			}
-			// Date setting and formating
-			String date[] = dateStart.split("/");
-			SimpleDateFormat forM = new SimpleDateFormat("MM/dd/yyyy");
-			String stringDate = date[0] + "/" + date[1] + "/" + date[2];
-			Date dateHolder = null;
-			dateHolder = forM.parse(stringDate);
 
 			if (error) {
 				JOptionPane.showMessageDialog(this, empty, "Errors Occured", JOptionPane.ERROR_MESSAGE);
@@ -316,7 +314,7 @@ public class EmployeeGUI extends JFrame implements ActionListener {
 
 			else {
 				// adding new Employee to the arrayList
-				NewHire newEmp = new NewHire(firstName, lastName, gender, department, dateHolder, id, age);
+				NewHire newEmp = new NewHire(firstName, lastName, gender, department, dateStart, id, age);
 				Volunter volunterObject = new Volunter(volunter);
 				Hourly hourly = new Hourly(totalHours, volunterObject);
 				Salary salary = new Salary(rate, totalHours, volunterObject);
@@ -326,6 +324,40 @@ public class EmployeeGUI extends JFrame implements ActionListener {
 				console.append("Reservation completed for " + firstName + "!\n");
 				JOptionPane.showMessageDialog(this, "Employee has been add", "Success",
 						JOptionPane.INFORMATION_MESSAGE);
+				// creating Excel file to save the data from user
+				output = CreateFile("EmployeeDocuments.csv");
+				// String Builder will our header in the Excel File
+				StringBuilder sb = new StringBuilder();
+				sb.append("firstName");
+				sb.append(',');
+				sb.append("LastName");
+				sb.append(',');
+				sb.append("ID");
+				sb.append(',');
+				sb.append("AGE");
+				sb.append(',');
+				sb.append("Gender");
+				sb.append(',');
+				sb.append("Department");
+				sb.append(',');
+				sb.append("Date");
+				sb.append(',');
+				sb.append("Hours");
+				sb.append(',');
+				sb.append("Volunter");
+				sb.append(',');
+				sb.append("Salary");
+				sb.append(',');
+				sb.append("Rate");
+				sb.append(',');
+				output.println(sb);
+				for (Employee person : employeesList) {
+					// calling this method
+					createEmployee(person, output);
+
+				}
+				output.flush();
+				output.close();
 
 			}
 
@@ -333,6 +365,28 @@ public class EmployeeGUI extends JFrame implements ActionListener {
 			e.getMessage();
 			JOptionPane.showMessageDialog(this, "Invalid input", "Errors Occured", JOptionPane.ERROR_MESSAGE);
 		}
+
+	}
+
+	// method that write all the detail on the Excel file
+	private void createEmployee(Employee person, PrintWriter output) {
+		String detail = person.getNewEmp() + "," + person.getTime() + "," + person.getSalary();
+		output.println(detail);
+
+	}
+
+	// method that create the Excel File
+	private PrintWriter CreateFile(String filePath) {
+		try {
+			FileWriter employeeList = new FileWriter(filePath);
+			BufferedWriter bw = new BufferedWriter(employeeList);
+			PrintWriter infoToWrite = new PrintWriter(bw);
+			return infoToWrite;
+		} catch (Exception e) {
+			e.printStackTrace();
+			System.exit(0);
+		}
+		return null;
 
 	}
 

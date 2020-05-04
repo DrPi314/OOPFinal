@@ -20,14 +20,12 @@ public class Salary extends Hourly {
 
 	public double getSalary() {
 		double salary = super.getTotalHoursOfWork() * rate;
-		System.out.println(super.getTotalHoursOfWork());
-		System.out.println(rate);
 		return salary;
 	}
 
 	@Override
 	public String toString() {
-		return "Salary [salary=" + getSalary() + ", rate=" + rate + "]";
+		return getSalary() + "," + " " + rate;
 	}
 
 }

@@ -85,8 +85,10 @@ public class NewHire {
 		String pattern = "MM/dd/yyyy";
 		SimpleDateFormat simpleDateFormat = new SimpleDateFormat(pattern);
 		String dateOfJoin =simpleDateFormat.format(dateOfJoining);
-		return "NewHire [firstName=" + firstName + ", lastName=" + lastName + ", id=" + id + ", age=" + age
-				+ ", gender=" + gender + ", department=" + department + ", dateOfJoining=" + dateOfJoin + "]";
+		
+		
+		return  firstName + "," + lastName + "," + id + "," + age
+				+ "," + gender + "," + department + "," + dateOfJoin + "]";
 	}
      
      
