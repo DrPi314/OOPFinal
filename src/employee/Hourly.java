@@ -51,7 +51,7 @@ public class Hourly {
 
 	@Override
 	public String toString() {
-		return "Hourly [totalHoursOfWork=" + totalHoursOfWork + ", volunter=" + volunter + "]";
+		return totalHoursOfWork + "," + volunter ;
 	}
 
 	

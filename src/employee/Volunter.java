@@ -19,7 +19,7 @@ public class Volunter {
 	
 	@Override
 	public String toString() {
-		return "Volunter [volunteer=" + volunteer + "]";
+		return  volunteer + "";
 	}
 
 }
