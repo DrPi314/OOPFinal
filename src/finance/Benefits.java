@@ -1,9 +1,12 @@
 package finance;
 
-import employee.Employee;
+import employee.*;
 
-public class Benefits extends Employee {
+public class Benefits {
 
+	private String fName;
+	private String lName;
+	private int ID;
 	private double iraRate;
 	private double companyDiscount;
 	private boolean fullTime;
@@ -16,19 +19,10 @@ public class Benefits extends Employee {
 	private String health;
 	private String dental;
 	
-	public Benefits() {
-		super();
-		iraRate = 0.00;
-		companyDiscount = 0.00;
-		fullTime = false;
-		hasHealth = false;
-		hasDental = false;
-		planD = new DentalInsurance();
-		planH = new HealthInsurance();
-	}
-	
-	public Benefits(int id, String name, double ira, double dis, boolean ft, boolean hea, boolean den, int l, int td, int th) {
-		super(id, name);			//make sure we get a constructor for Employee that handles these variables
+	public Benefits(String fn, String ln, int id, double ira, double dis, boolean ft, boolean hea, boolean den, int l, int td, int th) {
+		fName = fn;
+		lName = ln;
+		ID = id;
 		iraRate = ira;
 		companyDiscount = dis;
 		fullTime = ft;
@@ -86,7 +80,7 @@ public class Benefits extends Employee {
 		} else {
 			full = "is a Part-Time employee, ";
 		}
-		benefits = "Employee number " + super.getId() + " currently has " + this.getIraRate() 
+		benefits = "Employee number " + this.ID + " currently has " + this.getIraRate() 
 				+ " percent deducted from their checks to their IRA, receives a " + this.getCompanyDiscount()
 				+ " percent discount on products purchased from our company, " + full + planD.toString() + planH.toString();
 		return benefits;

@@ -7,6 +7,8 @@ import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 
+import finance.FinancesGUI;
+
 import java.awt.FlowLayout;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
@@ -24,6 +26,7 @@ import javax.swing.JScrollPane;
 import javax.swing.JButton;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
+import finance.*;
 
 public class EmployeeGUI extends JFrame implements ActionListener {
 
@@ -175,6 +178,9 @@ public class EmployeeGUI extends JFrame implements ActionListener {
 
 		JButton addButton = new JButton("Submit");
 		addButton.addActionListener(this);
+		
+		JButton financeButton = new JButton("Finances");
+		financeButton.addActionListener(this);
 
 		actionPane.add(addButton);
 		actionPane.add(displayButton);
@@ -182,6 +188,7 @@ public class EmployeeGUI extends JFrame implements ActionListener {
 		JButton clearButton = new JButton("Clear");
 		clearButton.addActionListener(this);
 		actionPane.add(clearButton);
+		actionPane.add(financeButton);
 
 		console = new JTextArea();
 		JScrollPane pane = new JScrollPane(console);
@@ -207,6 +214,9 @@ public class EmployeeGUI extends JFrame implements ActionListener {
 		{
 			newEmployee();
 
+		} else if (callingBtn.equalsIgnoreCase("Finances")) {
+			EmpNameID empNI = new EmpNameID(firstNameTextField.getText(), lastNameTextField.getText(), Integer.parseInt(idComboBox.getSelectedItem().toString()));
+			FinancesGUI finances = new FinancesGUI("Employee #" + empNI.getID(), empNI);
 		}
 	}
 
@@ -316,7 +326,7 @@ public class EmployeeGUI extends JFrame implements ActionListener {
 
 			else {
 				// adding new Employee to the arrayList
-				NewHire newEmp = new NewHire(firstName, lastName, gender, department, dateHolder, id, age);
+				NewHire newEmp = new NewHire(firstName, lastName, id, gender, department, dateHolder, age);
 				Volunter volunterObject = new Volunter(volunter);
 				Hourly hourly = new Hourly(totalHours, volunterObject);
 				Salary salary = new Salary(rate, totalHours, volunterObject);

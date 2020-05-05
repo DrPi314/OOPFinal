@@ -9,9 +9,9 @@ Alex-
 	-finance gui
 	
 Hussein-
-	-demographic package
-	-demographic gui
-	-master gui
+	-demographic package -- passed to Alex
+	-demographic gui     -- passed to Alex
+	-master gui          -- passed to Abshir
 	
 	
 - Hussein created a Payroll class and associated driver

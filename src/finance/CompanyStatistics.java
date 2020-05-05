@@ -1,24 +1,32 @@
 package finance;
+import java.util.ArrayList;
 import java.util.Date;
 
-public class CompanyStatistics {
+import javax.swing.*;
+
+import java.awt.*;
+import java.awt.event.*;
+
+public class CompanyStatistics extends EmpNameID {
+
 	private Date startDate;
-	private String scheduleName;
-	private String[] certifications;
+	private int[] schedule = {0000,0000,0000,0000,0000,0000,
+			0000,0000,0000,0000,0000,0000,0000,0000};
+	private ArrayList<String> certifications;
 	private String[] position;
+	EmpNameID emp;
 	
 	public CompanyStatistics() {
 		super();
 		this.startDate = null;
-		this.scheduleName = null;
 		this.certifications = null;
 		this.position = null;
 	}
 	
-	public CompanyStatistics(Date startDate, String scheduleName, String[] certifications, String[] position) {
+	public CompanyStatistics(Date startDate, int[] schedule, ArrayList<String> certifications, String[] position) {
 		super();
 		this.startDate = startDate;
-		this.scheduleName = scheduleName;
+		this.schedule = schedule;
 		this.certifications = certifications;
 		this.position = position;
 	}
@@ -31,22 +39,21 @@ public class CompanyStatistics {
 		this.startDate = startDate;
 	}
 	
-	public String getScheduleName() {
-		return scheduleName;
+	public int[] getSchedule() {
+		return schedule;
 	}
 	
-	public void setScheduleName(String scheduleName, boolean isStudent) {
-		this.scheduleName = scheduleName;
-		new Scheduling(scheduleName, isStudent);
+	public void setSchedule(int[] schedule) {
+		this.schedule = schedule;
 	}
 	
 	//create method for creating and returning certifications
-	public String[] getCertifications() {
+	public ArrayList<String> getCertifications() {
 		return certifications;
 	}
 	
-	public void setCertifications(String[] certifications) {
-		this.certifications = certifications;
+	public void addCertifications(String certification) {
+		this.certifications.add(certification);
 	}
 	
 	//create method for creating and returning Position

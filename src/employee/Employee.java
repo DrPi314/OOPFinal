@@ -13,6 +13,12 @@ public class Employee {
 		this.salary = salary;
 
 	}
+	
+	public Employee() {
+		this.newEmp = null;
+		this.salary = null;
+		this.time = null;
+	}
 
 	public NewHire getNewEmp() {
 		return newEmp;
