@@ -5,20 +5,21 @@ import java.util.Date;
 import finance.*;
 
 public class NewHire extends EmpNameID {
-	//Global variables  (moved name and id to its own class)
+	// Global variables (moved name and id to its own class)
 	private int age;
-    private String gender;
-    private String department;
-    private  Date dateOfJoining;
-    
-    public NewHire(String firstName, String lastName,int id,String gender, String department,Date dateOfJoining,int age) {
-    	super(firstName, lastName, id);
-		this.gender=gender;
-		this.department=department;
-		this.age= age;
-		this.dateOfJoining=dateOfJoining;
-    	
-    }
+	private String gender;
+	private String department;
+	private Date dateOfJoining;
+
+	public NewHire(String firstName, String lastName, int id, String gender, String department, Date dateOfJoining,
+			int age) {
+		super(firstName, lastName, id);
+		this.gender = gender;
+		this.department = department;
+		this.age = age;
+		this.dateOfJoining = dateOfJoining;
+
+	}
 
 	public int getAge() {
 		return age;
@@ -56,19 +57,16 @@ public class NewHire extends EmpNameID {
 	public String toString() {
 		String pattern = "MM/dd/yyyy";
 		SimpleDateFormat simpleDateFormat = new SimpleDateFormat(pattern);
-		String dateOfJoin =simpleDateFormat.format(dateOfJoining);
-<<<<<<< HEAD
-		return "NewHire [firstName=" + super.getfName() + ", lastName=" + super.getlName() + ", id=" + super.getID() + ", age=" + age
-				+ ", gender=" + gender + ", department=" + department + ", dateOfJoining=" + dateOfJoin + "]";
-=======
-		
-		
-		return  firstName + "," + lastName + "," + id + "," + age
-				+ "," + gender + "," + department + "," + dateOfJoin + "]";
->>>>>>> 862ed20fa7b468960f9c646ec7ff27b5c0c925a4
+		String dateOfJoin = simpleDateFormat.format(dateOfJoining);
+		//<<<<<<< HEAD
+		return "NewHire [firstName=" + super.getfName() + ", lastName=" + super.getlName() + ", id=" + super.getID()
+		+ ", age=" + age + ", gender=" + gender + ", department=" + department + ", dateOfJoining=" + dateOfJoin
+		+ "]";
+		//=======
+
+		// return firstName + "," + lastName + "," + id + "," + age
+		// + "," + gender + "," + department + "," + dateOfJoin + "]";
+		//>>>>>>> 862ed20fa7b468960f9c646ec7ff27b5c0c925a4
 	}
-     
-     
-     
-    
+
 }
