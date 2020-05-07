@@ -59,13 +59,13 @@ public class NewHire extends EmpNameID {
 		SimpleDateFormat simpleDateFormat = new SimpleDateFormat(pattern);
 		String dateOfJoin = simpleDateFormat.format(dateOfJoining);
 		//<<<<<<< HEAD
-		return "NewHire [firstName=" + super.getfName() + ", lastName=" + super.getlName() + ", id=" + super.getID()
-		+ ", age=" + age + ", gender=" + gender + ", department=" + department + ", dateOfJoining=" + dateOfJoin
-		+ "]";
+		//return "NewHire [firstName=" + super.getfName() + ", lastName=" + super.getlName() + ", id=" + super.getID()
+		//+ ", age=" + age + ", gender=" + gender + ", department=" + department + ", dateOfJoining=" + dateOfJoin
+		//+ "]";
 		//=======
 
-		// return firstName + "," + lastName + "," + id + "," + age
-		// + "," + gender + "," + department + "," + dateOfJoin + "]";
+		return super.getfName() + "," +super.getlName() + "," +super.getID() + "," + age
+	 + "," + gender + "," + department + "," + dateOfJoin + "]";
 		//>>>>>>> 862ed20fa7b468960f9c646ec7ff27b5c0c925a4
 	}
 

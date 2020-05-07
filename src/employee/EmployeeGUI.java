@@ -91,7 +91,7 @@ public class EmployeeGUI extends JFrame implements ActionListener {
 	 * Create the frame.
 	 */
 	public EmployeeGUI() {
-		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		setDefaultCloseOperation(JFrame.HIDE_ON_CLOSE);
 		setBounds(100, 100, 450, 300);
 		setLocationRelativeTo(null);
 		contentPane = new JPanel();
