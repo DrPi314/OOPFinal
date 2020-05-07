@@ -7,24 +7,24 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
 
-public class CompanyStatistics extends EmpNameID {
+public class CompanyStatistics {
 
 	private Date startDate;
-	private int[] schedule = {0000,0000,0000,0000,0000,0000,
-			0000,0000,0000,0000,0000,0000,0000,0000};
+	private int[] schedule = new int[14];
 	private ArrayList<String> certifications;
-	private String[] position;
+	private String[] position = new String[2];
 	EmpNameID emp;
 	
 	public CompanyStatistics() {
-		super();
+		int[] s = {0000,0000,0000,0000,0000,0000,
+				0000,0000,0000,0000,0000,0000,0000,0000};
+		setSchedule(s);
 		this.startDate = null;
 		this.certifications = null;
 		this.position = null;
 	}
 	
 	public CompanyStatistics(Date startDate, int[] schedule, ArrayList<String> certifications, String[] position) {
-		super();
 		this.startDate = startDate;
 		this.schedule = schedule;
 		this.certifications = certifications;
@@ -44,6 +44,9 @@ public class CompanyStatistics extends EmpNameID {
 	}
 	
 	public void setSchedule(int[] schedule) {
+		for(int i = 0; i < 14; i++) {
+			this.schedule[i] = schedule[i];
+		}
 		this.schedule = schedule;
 	}
 	

@@ -34,6 +34,7 @@ import java.util.regex.Pattern;
 import finance.*;
 
 public class EmployeeGUI extends JFrame implements ActionListener {
+	private NewHire newEmp;
 
 	private JPanel contentPane;
 	private JTextField firstNameTextField;
@@ -222,7 +223,7 @@ public class EmployeeGUI extends JFrame implements ActionListener {
 			newEmployee();
 
 		} else if (callingBtn.equalsIgnoreCase("Finances")) {
-			EmpNameID empNI = new EmpNameID(firstNameTextField.getText(), lastNameTextField.getText(), Integer.parseInt(idComboBox.getSelectedItem().toString()));
+			EmpNameID empNI = new EmpNameID(newEmp.getID(), newEmp.getfName(), newEmp.getlName());
 			FinancesGUI finances = new FinancesGUI("Employee #" + empNI.getID(), empNI);
 		}
 	}
@@ -324,11 +325,9 @@ public class EmployeeGUI extends JFrame implements ActionListener {
 
 			else {
 				// adding new Employee to the arrayList
-<<<<<<< HEAD
-				NewHire newEmp = new NewHire(firstName, lastName, id, gender, department, dateHolder, age);
-=======
-				NewHire newEmp = new NewHire(firstName, lastName, gender, department, dateStart, id, age);
->>>>>>> 862ed20fa7b468960f9c646ec7ff27b5c0c925a4
+
+				newEmp = new NewHire(id, firstName, lastName, gender, department, dateStart, age);
+
 				Volunter volunterObject = new Volunter(volunter);
 				Hourly hourly = new Hourly(totalHours, volunterObject);
 				Salary salary = new Salary(rate, totalHours, volunterObject);
