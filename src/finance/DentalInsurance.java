@@ -1,32 +1,14 @@
 package finance;
 
 public class DentalInsurance extends Benefits {
-
-	private int type;
 	
-	public DentalInsurance() {
-		type = 0;
+	public DentalInsurance(String empFam, String plan) {
+		super(empFam, plan);
 	}
 	
-	public DentalInsurance(int t) {
-		type =  t;
-	}
-
-	public int getType() {
-		return type;
-	}
-
-	public void setType(int type) {
-		this.type = type;
-	}
-	
+	@Override
 	public String toString() {
-		String dental;
-		if(this.getType() > 0) {
-			dental = "has dental coverage of " + this.getType() + " type, ";
-		} else {
-			dental = "has no dental coverage, ";
-		}
+		String dental = "Employee has chosen to insure " + this.getEmpFam() + " on the " + this.getPlan() + " dental insurance plan.";
 		return dental;
 	}
 }

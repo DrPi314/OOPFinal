@@ -13,7 +13,7 @@ public class CompanyStatistics {
 	private int[] schedule = new int[14];
 	private ArrayList<String> certifications;
 	private String[] position = new String[2];
-	EmpNameID emp;
+//	EmpNameID emp;
 	
 	public CompanyStatistics() {
 		int[] s = {0000,0000,0000,0000,0000,0000,

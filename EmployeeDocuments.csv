@@ -1,2 +1,2 @@
 firstName,LastName,ID,AGE,Gender,Department,Date,Hours,Volunter,Salary,Rate,
-NewHire [firstName=a, lastName=q, id=1, age=22, gender=Male, department=s, dateOfJoining=05/06/2020],22.0,false,4884.0, 222.0
+NewHire [firstName=a, lastName=q, id=2, age=22, gender=Male, department=s, dateOfJoining=05/07/2020],22.0,true,484.0, 22.0

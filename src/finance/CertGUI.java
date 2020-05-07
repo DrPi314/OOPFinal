@@ -7,28 +7,27 @@ import java.util.*;
 import javax.swing.*;
 
 public class CertGUI extends JFrame implements ActionListener {
-	private ArrayList<String> certifications;
+	private ArrayList<String> certifications = new ArrayList<String>();
 	
 	private JLabel certLbl = new JLabel("New Certificate:");
 	private JTextField certField = new JTextField();
 	private JButton addCert = new JButton("Add Certificate");
 	private JTextArea display = new JTextArea("Current Certificates:\n");
+	private JScrollPane displayS = new JScrollPane(display);
 	private JPanel entry = new JPanel(new GridLayout(1,3));
 	private JPanel window = new JPanel(new BorderLayout());
 	
-	public CertGUI(String title, ArrayList<String> certifications) {
+	public CertGUI(String title, ArrayList<String> c) {
 		super(title);
-		setSize(100,80);
+		setSize(400,160);
 		setDefaultCloseOperation(HIDE_ON_CLOSE);
+		setLayout(new FlowLayout());
 		setLocationRelativeTo(null);
 		createEntry();
 		createWindow();
 		add(window);
 		setListeners();
 		setVisible(true);
-		this.certifications = certifications;
-		for(String s : certifications)
-			display.append(s + "\n");
 	}
 	
 	private void createEntry() {
@@ -39,7 +38,10 @@ public class CertGUI extends JFrame implements ActionListener {
 	
 	private void createWindow() {
 		window.add(entry, BorderLayout.NORTH);
-		window.add(display);
+		Dimension size = new Dimension(400, 160);
+		display.setSize(size);
+		displayS.setSize(size);
+		window.add(displayS, BorderLayout.CENTER);
 	}
 	
 	private void setListeners() {
