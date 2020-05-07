@@ -10,12 +10,18 @@ import employee.*;
 public class FinancesGUI extends JFrame implements ActionListener {
 	private Benefits bene;
 	private EmpNameID empNI;
+	private CompanyStatistics emp;
 	
 	//finances components
 	private JButton schedBtn = new JButton("Scheduler");
-	private JTextField IDText = new JTextField(empNI.getID());
-	private JTextField fNameText = new JTextField(empNI.getfName());
-	private JTextField lNameText = new JTextField(empNI.getlName());
+	private JButton certBtn = new JButton("Certifications");
+	private JTextField IDText;
+	private JTextField fNameText;
+	private JTextField lNameText;
+	private JTextField dateField = new JTextField();
+	private JTextField deptField = new JTextField();
+	private JTextField posField = new JTextField();
+	private JButton submitBtn = new JButton("Submit");
 	//private JPanel 
 	private JPanel navBar = new JPanel(new FlowLayout());
 	 
@@ -30,11 +36,16 @@ public class FinancesGUI extends JFrame implements ActionListener {
 		addPanelsToFrame();
 		setFinancesListeners();
 		setVisible(true);
-		empNI = new EmpNameID(empNI.getfName(), empNI.getlName(), empNI.getID());
+		IDText = new JTextField(empNI.getID());
+		fNameText = new JTextField(empNI.getfName());
+		lNameText = new JTextField(empNI.getlName());
+		empNI = new EmpNameID(empNI.getID(), empNI.getfName(), empNI.getlName());
+		this.emp = new CompanyStatistics();
 	}
 	
 	private void createNavBar() {
 		navBar.add(schedBtn);
+		navBar.add(certBtn);
 	}
 	
 	private void addPanelsToFrame() {
@@ -49,8 +60,9 @@ public class FinancesGUI extends JFrame implements ActionListener {
 	public void actionPerformed(ActionEvent e) {
 		String callingBtn = e.getActionCommand();
 		if(callingBtn.equalsIgnoreCase("Scheduler")) {
-			CompanyStatistics emp = new CompanyStatistics();
-			SchedulerGUI scheduler = new SchedulerGUI("Employee # " + " Scheduler",emp.getSchedule());
+			SchedulerGUI scheduler = new SchedulerGUI("Employee # " + empNI.getID() + " Scheduler",this.emp.getSchedule());
+		} else if(callingBtn.equalsIgnoreCase("Certifications")) {
+			CertGUI certs = new CertGUI("Employee # " + empNI.getID() + " Certificates", this.emp.getCertifications());
 		}
 	}
 	

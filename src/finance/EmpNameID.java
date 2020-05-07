@@ -1,17 +1,13 @@
 package finance;
 
+import employee.*;
+
 public class EmpNameID {
 	private String fName;
 	private String lName;
 	private int ID;
 	
-	public EmpNameID() {
-		this.fName = null;
-		this.lName = null;
-		this.ID = 0;
-	}
-	
-	public EmpNameID(String fn, String ln, int id) {
+	public EmpNameID(int id, String fn, String ln) {
 		this.fName = fn;
 		this.lName = ln;
 		this.ID = id;

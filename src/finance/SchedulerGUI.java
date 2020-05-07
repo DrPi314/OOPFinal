@@ -9,7 +9,7 @@ public class SchedulerGUI extends JFrame implements ActionListener {
 	private CompanyStatistics stat = new CompanyStatistics();
 	private JLabel instruct = new JLabel("Please enter times as \"XXXX\" in 24H format.");
 	private JButton submitBtn = new JButton("Update");
-	private JTextField[] avail = new JTextField[14];
+	private JTextField[] avail;
 	private String[] titles = 
 		{"Sunday","Monday","Tuesday","Wednesday","Thursday","Friday","Saturday"};
 	private JPanel topRow = new JPanel(new FlowLayout());
@@ -38,9 +38,10 @@ public class SchedulerGUI extends JFrame implements ActionListener {
 	}
 	
 	private void createEntryRow(int[] sched) {
+		 avail = new JTextField[14];
 		for(int i = 0; i < 14; i++) {
+			avail[i] = new JTextField("" + sched[i]);
 			entryRow.add(avail[i]);
-			avail[i].setText(sched[i] + "");
 		}
 	}
 	
@@ -72,9 +73,5 @@ public class SchedulerGUI extends JFrame implements ActionListener {
 			avail[i].setText("");
 		}
 		return schedule;
-	}
-	
-	public void printSchedule() {
-		
 	}
 }

@@ -16,9 +16,12 @@ Hussein-
 	
 - Hussein created a Payroll class and associated driver
 
-If anyone feels like they do not have the time to finish their portion 
-as described above, please text the group as soon as you can so we 
-can help you out.
+I'm having so much trouble trying to carry through the Employee Name and ID.  If you can get it to work tonight, I'd appreciate that.
+Basically I'm trying to use a reference class to keep all the data organized.
+If we can't, I plan on taking out that part and just making the code function, which I've had success with.  
+Since that portion is under my name, it would not affect your grade.  It will be able to save employee data,
+but it will not be able to keep the employee data associated.  Not an end-user product, but something worth a decent grade, worst case.
+
 
 It's been a great semester, I hope your classes have been going well,
 and best of luck for your finals and futures!
