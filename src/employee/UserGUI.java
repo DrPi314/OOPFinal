@@ -15,10 +15,13 @@ import javax.swing.JTextArea;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileNotFoundException;
+import java.io.FileReader;
 import java.io.IOException;
-import java.util.Scanner;
+
+
 
 import javax.swing.JComboBox;
 
@@ -99,70 +102,64 @@ public class UserGUI extends JFrame {
 
 		public void actionPerformed(ActionEvent e) {
 			if (e.getSource() == logButton) {
-				user();
-				
+				try {
+					user();
+				} catch (FileNotFoundException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				} catch (IOException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				}
 
 			}
 
 		}
 	}
 
-	private void user() {
+	private void user() throws IOException {
 		String FName = firstTextField.getName();
 		String lName = lastTextField.getName();
 		String idString = (String) comboBox.getSelectedItem();
 
-		String filePath = ("C:\\Users\\abshi\\Desktop\\Project\\OOPFinal\\src\\EmployeeDocuments.csv");
-		readRecord(FName, lName, idString, filePath);
+		String filePath = ("EmployeeDocuments.csv");
+		
+		String rs=readRecord(filePath,FName);
+		if(rs.equalsIgnoreCase(idString)) {
+			JOptionPane.showMessageDialog(null, "found");
+		}
+		else
+			JOptionPane.showMessageDialog(null, "not found");
 
 	}
 
 	// method will open the file and find if the input match what in the file.
 
-	private void readRecord(String searchTerm, String lastname, String idSearch, String filePath) {
+	private String readRecord(String filePath,String s) throws IOException  {
 		boolean found = false;
-		String f, l, id, age, dep, date, hr, vl, salary, rate;
 
-		try {
-			File file = new File(filePath);
-			Scanner scan = new Scanner(file);
-			scan.useDelimiter(",\n");
-			while (scan.hasNext() && !found) {
-				f = scan.next();
-				l = scan.next();
-				id = scan.next();
-				age = scan.next();
-				dep = scan.next();
-				date = scan.next();
-				hr = scan.next();
-				vl = scan.next();
-				salary = scan.next();
-				rate = scan.next();
-
-				if (f.equalsIgnoreCase(searchTerm) && l.equalsIgnoreCase(lastname) && id.equalsIgnoreCase(idSearch)) {
-					found = true;
-
-				}
-
+		String resultRow=null;
+		FileReader file = new FileReader(filePath);
+		BufferedReader br=new BufferedReader(file);
+		String line = null;
+		while( (line=br.readLine()) !=null){
+			String[] values=line.split(",");
+			for (int i = 0; i < values.length; i++) {
+				if(values[i].equalsIgnoreCase(s));
+				resultRow=line;
+				break;
+				
 			}
-
-			if (found) {
-				userTextArea.append("found");
-				JOptionPane.showMessageDialog(null,
-						"FirstName: " + searchTerm + "LastName: " + lastname + "ID: " + idSearch);
-
-			} else
-				JOptionPane.showMessageDialog(null, "The user not found");
+			
+			
+			
+			
+			
+			
 
 		}
-
-		catch (FileNotFoundException e) {
-			e.printStackTrace();
-
-		} catch (IOException e) {
-			e.printStackTrace();
-
-		}
+		br.close();
+		return resultRow;
 
 	}
 

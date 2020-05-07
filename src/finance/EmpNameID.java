@@ -7,7 +7,7 @@ public class EmpNameID {
 	private String lName;
 	private int ID;
 	
-	public EmpNameID(int id, String fn, String ln) {
+	public EmpNameID( String fn, String ln,int id) {
 		this.fName = fn;
 		this.lName = ln;
 		this.ID = id;

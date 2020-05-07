@@ -223,12 +223,12 @@ public class EmployeeGUI extends JFrame implements ActionListener {
 			newEmployee();
 
 		} else if (callingBtn.equalsIgnoreCase("Finances")) {
-<<<<<<< HEAD
-			EmpNameID empNI = new EmpNameID(newEmp.getID(), newEmp.getfName(), newEmp.getlName());
-=======
+//<<<<<<< HEAD
+			//EmpNameID empNI = new EmpNameID(newEmp.getID(), newEmp.getfName(), newEmp.getlName());
+//=======
 			EmpNameID empNI = new EmpNameID(firstNameTextField.getText(), lastNameTextField.getText(),
 					Integer.parseInt(idComboBox.getSelectedItem().toString()));
->>>>>>> 555ebd19777906ab788d9b6de2c76858edd54bd5
+//>>>>>>> 555ebd19777906ab788d9b6de2c76858edd54bd5
 			FinancesGUI finances = new FinancesGUI("Employee #" + empNI.getID(), empNI);
 		}
 	}
@@ -331,11 +331,11 @@ public class EmployeeGUI extends JFrame implements ActionListener {
 			else {
 				// adding new Employee to the arrayList
 
-<<<<<<< HEAD
-				newEmp = new NewHire(id, firstName, lastName, gender, department, dateStart, age);
-=======
+//<<<<<<< HEAD
+				//newEmp = new NewHire(id, firstName, lastName, gender, department, dateStart, age);
+//=======
 				NewHire newEmp = new NewHire(firstName, lastName, id, gender, department, dateStart, age);
->>>>>>> 555ebd19777906ab788d9b6de2c76858edd54bd5
+//>>>>>>> 555ebd19777906ab788d9b6de2c76858edd54bd5
 
 				Volunter volunterObject = new Volunter(volunter);
 				Hourly hourly = new Hourly(totalHours, volunterObject);

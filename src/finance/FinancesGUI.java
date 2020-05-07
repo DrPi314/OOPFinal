@@ -39,7 +39,7 @@ public class FinancesGUI extends JFrame implements ActionListener {
 		IDText = new JTextField(empNI.getID());
 		fNameText = new JTextField(empNI.getfName());
 		lNameText = new JTextField(empNI.getlName());
-		empNI = new EmpNameID(empNI.getID(), empNI.getfName(), empNI.getlName());
+		empNI = new EmpNameID(empNI.getlName(), empNI.getfName(), empNI.getID());
 		this.emp = new CompanyStatistics();
 	}
 	
