@@ -13,6 +13,9 @@ Hussein-
 	-demographic gui     -- passed to Alex
 	-master gui          -- passed to Abshir
 	
+Final major change:
+	-demographic package removed for time
+	
 	
 - Hussein created a Payroll class and associated driver
 

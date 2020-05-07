@@ -10,8 +10,6 @@ import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 
-import demographic.*;
-
 public class MasterGUI extends JFrame{
 	private JPanel contentPane;
 	private JPanel topPanel;

@@ -38,9 +38,6 @@ public class CertGUI extends JFrame implements ActionListener {
 	
 	private void createWindow() {
 		window.add(entry, BorderLayout.NORTH);
-		Dimension size = new Dimension(400, 160);
-		display.setSize(size);
-		displayS.setSize(size);
 		window.add(displayS, BorderLayout.CENTER);
 	}
 	
