@@ -17,7 +17,7 @@ Hussein-
 - Hussein created a Payroll class and associated driver
 
 I'm having so much trouble trying to carry through the Employee Name and ID.  If you can get it to work tonight, I'd appreciate that.
-Basically I'm trying to use a reference class to keep all the data organized.
+Basically I'm trying to use a reference class to keep all the data organized.// Abshir = i try to fixed the issue wuth Employee Name and ID . the finance button now is working and responding//
 If we can't, I plan on taking out that part and just making the code function, which I've had success with.  
 Since that portion is under my name, it would not affect your grade.  It will be able to save employee data,
 but it will not be able to keep the employee data associated.  Not an end-user product, but something worth a decent grade, worst case.
