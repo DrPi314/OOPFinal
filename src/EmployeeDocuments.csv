@@ -1,0 +1,2 @@
+firstName,LastName,ID,AGE,Gender,Department,Date,Hours,Volunter,Salary,Rate,
+NewHire [firstName=Abshir, lastName=m, id=1, age=33, gender=Other, department=IT, dateOfJoining=05/05/2020],3.0,true,9.0, 3.0
