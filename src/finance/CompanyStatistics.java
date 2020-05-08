@@ -6,47 +6,25 @@ import javax.swing.*;
 
 import java.awt.*;
 import java.awt.event.*;
+import java.io.*;
 
 public class CompanyStatistics {
-
-	private Date startDate;
-	private int[] schedule = new int[14];
+	private int ID;
 	private ArrayList<String> certifications;
-	private String[] position = new String[2];
-//	EmpNameID emp;
+	private String[] benefits;
+	private int[] schedule;
 	
-	public CompanyStatistics() {
-		int[] s = {0000,0000,0000,0000,0000,0000,
-				0000,0000,0000,0000,0000,0000,0000,0000};
-		setSchedule(s);
-		this.startDate = null;
+	public CompanyStatistics(int i) {
+		this.ID = i;
 		this.certifications = null;
-		this.position = null;
+		this.benefits = null;
+		this.schedule = emptySchedule();
 	}
 	
-	public CompanyStatistics(Date startDate, int[] schedule, ArrayList<String> certifications, String[] position) {
-		this.startDate = startDate;
-		this.schedule = schedule;
+	public CompanyStatistics(int i, ArrayList<String> certifications, String[] position, String[] benefits, int[] schedule) {
+		this.ID = i;
 		this.certifications = certifications;
-		this.position = position;
-	}
-	
-	public Date getStartDate() {
-		return startDate;
-	}
-	
-	public void setStartDate(Date startDate) {
-		this.startDate = startDate;
-	}
-	
-	public int[] getSchedule() {
-		return schedule;
-	}
-	
-	public void setSchedule(int[] schedule) {
-		for(int i = 0; i < 14; i++) {
-			this.schedule[i] = schedule[i];
-		}
+		this.benefits = benefits;
 		this.schedule = schedule;
 	}
 	
@@ -59,15 +37,16 @@ public class CompanyStatistics {
 		this.certifications.add(certification);
 	}
 	
-	//create method for creating and returning Position
-	public String[] getPosition() {
-		return position;
+	public int[] emptySchedule() {
+		int[] schedule = new int[14];
+		for(int i = 0; i < 14; i++) {
+			schedule[i] = 0;
+		}
+		return schedule;
 	}
 	
-	public void setPosition(String[] position) {
-		this.position = position;
+	public int[] getSchedule() {
+		return this.schedule;
 	}
-	
-	
 	
 }

@@ -2,14 +2,21 @@ package finance;
 
 import java.awt.*;
 import java.awt.event.*;
+import java.io.BufferedReader;
+import java.io.BufferedWriter;
+import java.io.FileReader;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.util.Scanner;
 
 import javax.swing.*;
 
 public class SchedulerGUI extends JFrame implements ActionListener {
-	private CompanyStatistics stat = new CompanyStatistics();
+	private int ID;
+	private int[] schedule = new int[14];
 	private JLabel instruct = new JLabel("Please enter times as \"XXXX\" in 24H format.");
 	private JButton submitBtn = new JButton("Update");
-	private JTextField[] avail;
+	private JTextField[] avail = new JTextField[14];
 	private String[] titles = 
 		{"Sunday","Monday","Tuesday","Wednesday","Thursday","Friday","Saturday"};
 	private JPanel topRow = new JPanel(new FlowLayout());
@@ -18,7 +25,7 @@ public class SchedulerGUI extends JFrame implements ActionListener {
 
 	
 
-	public SchedulerGUI(String title, int[] sched) {
+	public SchedulerGUI(String title, int i, int[] sched) {
 		super(title);
 		setSize(800,160);
 		setDefaultCloseOperation(HIDE_ON_CLOSE);
@@ -30,6 +37,8 @@ public class SchedulerGUI extends JFrame implements ActionListener {
 		add(entryRow, BorderLayout.CENTER);
 		setListeners();
 		setVisible(true);
+		this.schedule = sched;
+		this.ID = i;
 	}
 	
 	private void createTopRow() {
@@ -38,7 +47,7 @@ public class SchedulerGUI extends JFrame implements ActionListener {
 	}
 	
 	private void createEntryRow(int[] sched) {
-		 avail = new JTextField[14];
+		load();
 		for(int i = 0; i < 14; i++) {
 			avail[i] = new JTextField("" + sched[i]);
 			entryRow.add(avail[i]);
@@ -62,7 +71,9 @@ public class SchedulerGUI extends JFrame implements ActionListener {
 	public void actionPerformed(ActionEvent e) {
 		String callingBtn = e.getActionCommand();
 		if(callingBtn.equalsIgnoreCase("Update")) {
-			stat.setSchedule(createSchedule());
+			createSchedule();
+			save(schedule);
+			createEntryRow(schedule);
 		}
 	}
 	
@@ -73,5 +84,38 @@ public class SchedulerGUI extends JFrame implements ActionListener {
 			avail[i].setText("");
 		}
 		return schedule;
+	}
+	
+	public void save(int[] schedule) {
+		try { 
+			BufferedWriter s = new BufferedWriter(new FileWriter("Schedule.exe"));
+			s.write(schedule.toString());
+			s.close();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+	}
+	
+	public int[] load() {
+		try {
+			Scanner s = new Scanner(new FileReader("Schedule.exe"));
+			String[] sc = s.toString().split(",");
+			for(int i = 0; i < 14; i++) {
+				this.schedule[i] = Integer.parseInt(sc[i]);
+			}
+			s.close();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return this.schedule;
+	}
+	
+	@Override
+	public String toString() {
+		String sched = null;
+		for(int i : this.schedule) {
+			sched = sched + "," + i;
+		}
+		return sched;
 	}
 }

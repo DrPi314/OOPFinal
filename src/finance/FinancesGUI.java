@@ -2,14 +2,14 @@ package finance;
 
 import java.awt.*;
 import java.awt.event.*;
+import java.util.*;
 
 import javax.swing.*;
 
 import employee.*;
 
 public class FinancesGUI extends JFrame implements ActionListener {
-	private Benefits bene;
-//	private EmpNameID empNI;
+	private int ID;
 	private CompanyStatistics emp;
 	
 	//finances components
@@ -27,9 +27,9 @@ public class FinancesGUI extends JFrame implements ActionListener {
 	private JPanel navBar = new JPanel(new FlowLayout());
 	 
 	
-	public FinancesGUI(String title) {
+	public FinancesGUI(String title, int i) {
 		super(title);
-		setSize(400,400);
+		setSize(400,100);
 		setLocationRelativeTo(null);
 		setDefaultCloseOperation(HIDE_ON_CLOSE);
 		setLayout(new BorderLayout());
@@ -37,11 +37,10 @@ public class FinancesGUI extends JFrame implements ActionListener {
 		addPanelsToFrame();
 		setFinancesListeners();
 		setVisible(true);
-//		IDText = new JTextField(empNI.getID());
-//		fNameText = new JTextField(empNI.getfName());
-//		lNameText = new JTextField(empNI.getlName());
-//		empNI = new EmpNameID(empNI.getlName(), empNI.getfName(), empNI.getID());
-		this.emp = new CompanyStatistics();
+		this.ID = i;
+		emp = new CompanyStatistics(i);
+		Benefits dent = new DentalInsurance(i);
+		Benefits heal = new HealthInsurance(i);
 	}
 	
 	private void createNavBar() {
@@ -64,16 +63,12 @@ public class FinancesGUI extends JFrame implements ActionListener {
 	public void actionPerformed(ActionEvent e) {
 		String callingBtn = e.getActionCommand();
 		if(callingBtn.equalsIgnoreCase("Scheduler")) {
-			SchedulerGUI scheduler = new SchedulerGUI("Employee Scheduler",this.emp.getSchedule());
+			SchedulerGUI scheduler = new SchedulerGUI("Employee # " + this.ID + " Scheduler", ID, emp.getSchedule());
 		} else if(callingBtn.equalsIgnoreCase("Certifications")) {
-			CertGUI certs = new CertGUI("Employee Certificates", this.emp.getCertifications());
+			CertGUI certs = new CertGUI("Employee Certificates", ID, this.emp.getCertifications());
 		} else if(callingBtn.equalsIgnoreCase("Benefits")) {
-			BenefitsGUI benefits = new BenefitsGUI("Employee Benefits");
+			BenefitsGUI benefits = new BenefitsGUI("Employee Benefits", ID);
 		}
 	}
-	
-	
-	
-
 
 }

@@ -224,7 +224,7 @@ public class EmployeeGUI extends JFrame implements ActionListener {
 
 		} else if (callingBtn.equalsIgnoreCase("Finances")) {
 
-			FinancesGUI finances = new FinancesGUI("Finances");
+			FinancesGUI finances = new FinancesGUI("Finances", Integer.parseInt(this.idComboBox.getSelectedItem().toString()));
 		}
 	}
 

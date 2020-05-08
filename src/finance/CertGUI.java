@@ -8,6 +8,7 @@ import javax.swing.*;
 
 public class CertGUI extends JFrame implements ActionListener {
 	private ArrayList<String> certifications = new ArrayList<String>();
+	private int ID;
 	
 	private JLabel certLbl = new JLabel("New Certificate:");
 	private JTextField certField = new JTextField();
@@ -17,7 +18,7 @@ public class CertGUI extends JFrame implements ActionListener {
 	private JPanel entry = new JPanel(new GridLayout(1,3));
 	private JPanel window = new JPanel(new BorderLayout());
 	
-	public CertGUI(String title, ArrayList<String> c) {
+	public CertGUI(String title, int i, ArrayList<String> c) {
 		super(title);
 		setSize(400,160);
 		setDefaultCloseOperation(HIDE_ON_CLOSE);
@@ -28,6 +29,7 @@ public class CertGUI extends JFrame implements ActionListener {
 		add(window);
 		setListeners();
 		setVisible(true);
+		this.ID = i;
 	}
 	
 	private void createEntry() {
