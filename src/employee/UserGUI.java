@@ -45,7 +45,7 @@ public class UserGUI extends JFrame {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
-					UserGUI frame = new UserGUI();
+					UserGUI frame = new UserGUI("User");
 					frame.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
@@ -57,7 +57,8 @@ public class UserGUI extends JFrame {
 	/**
 	 * Create the frame.
 	 */
-	public UserGUI() {
+	public UserGUI(String title) {
+		super(title);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 450, 300);
 		contentPane = new JPanel();
@@ -127,6 +128,7 @@ public class UserGUI extends JFrame {
 		String FName = firstTextField.getText();
 		String lName = lastTextField.getText();
 		String idString = idTextField.getText();
+		int id= Integer.parseInt(idString);
 		// creating arrayList and addding all the info we get from user
 		ArrayList<String> individuals = new ArrayList<String>();
 		individuals.add(FName);
@@ -141,7 +143,11 @@ public class UserGUI extends JFrame {
 		boolean userValid = readRecord(filePath, FName, lName, idString);
 		// if return true we show their benefits and etc
 		if (userValid) {
+<<<<<<< HEAD
 			FinancesGUI f = new FinancesGUI("Finances", Integer.parseInt(idTextField.getText()));
+=======
+			FinancesGUI f = new FinancesGUI("finance",id);
+>>>>>>> cfb73386a6c5a33ecc30a98c7c89954865176be7
 			f.setVisible(true);
 
 		}
