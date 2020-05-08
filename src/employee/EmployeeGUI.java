@@ -54,11 +54,11 @@ public class EmployeeGUI extends JFrame implements ActionListener {
 	// this method will return arraylist for the IDs
 	private ArrayList<Integer> myIDs() {
 		ArrayList<Integer> numbers = new ArrayList<Integer>(5);
-		numbers.add(1);
-		numbers.add(2);
-		numbers.add(3);
-		numbers.add(4);
-		numbers.add(5);
+		numbers.add(01001);
+		numbers.add(02002);
+		numbers.add(03003);
+		numbers.add(04004);
+		numbers.add(05005);
 
 		return (numbers);
 	}
@@ -187,8 +187,8 @@ public class EmployeeGUI extends JFrame implements ActionListener {
 		JButton addButton = new JButton("Submit");
 		addButton.addActionListener(this);
 
-		JButton financeButton = new JButton("Finances");
-		financeButton.addActionListener(this);
+		//JButton financeButton = new JButton("Finances");
+		//financeButton.addActionListener(this);
 
 		actionPane.add(addButton);
 		actionPane.add(displayButton);
@@ -196,7 +196,7 @@ public class EmployeeGUI extends JFrame implements ActionListener {
 		JButton clearButton = new JButton("Clear");
 		clearButton.addActionListener(this);
 		actionPane.add(clearButton);
-		actionPane.add(financeButton);
+		
 
 		console = new JTextArea();
 		JScrollPane pane = new JScrollPane(console);
@@ -222,10 +222,14 @@ public class EmployeeGUI extends JFrame implements ActionListener {
 		{
 			newEmployee();
 
+<<<<<<< HEAD
 		} else if (callingBtn.equalsIgnoreCase("Finances")) {
 
 			FinancesGUI finances = new FinancesGUI("Finances", Integer.parseInt(this.idComboBox.getSelectedItem().toString()));
 		}
+=======
+		} 
+>>>>>>> 4c224c5f88f989b74ce5e18d89c9fdd650b17fb6
 	}
 
 	// method that will match yes and no to true and false respectively
