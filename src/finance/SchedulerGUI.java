@@ -88,7 +88,7 @@ public class SchedulerGUI extends JFrame implements ActionListener {
 	
 	public void save(int[] schedule) {
 		try { 
-			BufferedWriter s = new BufferedWriter(new FileWriter("Schedule.exe"));
+			BufferedWriter s = new BufferedWriter(new FileWriter("Schedule.csv"));
 			s.write(schedule.toString());
 			s.close();
 		} catch (IOException e) {
@@ -98,7 +98,7 @@ public class SchedulerGUI extends JFrame implements ActionListener {
 	
 	public int[] load() {
 		try {
-			Scanner s = new Scanner(new FileReader("Schedule.exe"));
+			Scanner s = new Scanner(new FileReader("Schedule.csv"));
 			String[] sc = s.toString().split(",");
 			for(int i = 0; i < 14; i++) {
 				this.schedule[i] = Integer.parseInt(sc[i]);
