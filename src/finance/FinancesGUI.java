@@ -5,12 +5,15 @@ import java.awt.event.*;
 import java.util.*;
 
 import javax.swing.*;
-
 import employee.*;
 
 public class FinancesGUI extends JFrame implements ActionListener {
+	
+	//Local variables
 	private int ID;
 	private CompanyStatistics emp;
+	private DentalInsurance dent;
+	private HealthInsurance heal;
 	
 	//finances components
 	private JButton schedBtn = new JButton("Scheduler");
@@ -23,10 +26,10 @@ public class FinancesGUI extends JFrame implements ActionListener {
 	private JTextField deptField = new JTextField();
 	private JTextField posField = new JTextField();
 	private JButton submitBtn = new JButton("Submit");
-	//private JPanel 
 	private JPanel navBar = new JPanel(new FlowLayout());
 	 
 	
+	//Constructor
 	public FinancesGUI(String title, int i) {
 		super(title);
 		setSize(400,100);
@@ -39,10 +42,12 @@ public class FinancesGUI extends JFrame implements ActionListener {
 		setVisible(true);
 		this.ID = i;
 		emp = new CompanyStatistics(i);
-		Benefits dent = new DentalInsurance(i);
-		Benefits heal = new HealthInsurance(i);
+		dent = new DentalInsurance(i);
+		heal = new HealthInsurance(i);
 	}
 	
+	
+	//Panel makers
 	private void createNavBar() {
 		navBar.add(schedBtn);
 		navBar.add(certBtn);
@@ -53,6 +58,8 @@ public class FinancesGUI extends JFrame implements ActionListener {
 		add(navBar, BorderLayout.NORTH);
 	}
 	
+	
+	//Listeners and handlers
 	private void setFinancesListeners() {
 		schedBtn.addActionListener(this);
 		certBtn.addActionListener(this);
@@ -65,7 +72,7 @@ public class FinancesGUI extends JFrame implements ActionListener {
 		if(callingBtn.equalsIgnoreCase("Scheduler")) {
 			SchedulerGUI scheduler = new SchedulerGUI("Employee # " + this.ID + " Scheduler", ID, emp.getSchedule());
 		} else if(callingBtn.equalsIgnoreCase("Certifications")) {
-			CertGUI certs = new CertGUI("Employee Certificates", ID, this.emp.getCertifications());
+			CertGUI certs = new CertGUI("Employee Certificates", ID);
 		} else if(callingBtn.equalsIgnoreCase("Benefits")) {
 			BenefitsGUI benefits = new BenefitsGUI("Employee Benefits", ID);
 		}

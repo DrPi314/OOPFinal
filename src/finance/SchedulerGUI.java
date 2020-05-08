@@ -2,18 +2,17 @@ package finance;
 
 import java.awt.*;
 import java.awt.event.*;
-import java.io.BufferedReader;
-import java.io.BufferedWriter;
-import java.io.FileReader;
-import java.io.FileWriter;
-import java.io.IOException;
-import java.util.Scanner;
+import java.io.*;
 
 import javax.swing.*;
 
 public class SchedulerGUI extends JFrame implements ActionListener {
+	
+	//Local variables
 	private int ID;
 	private int[] schedule = new int[14];
+	
+	//Components
 	private JLabel instruct = new JLabel("Please enter times as \"XXXX\" in 24H format.");
 	private JButton submitBtn = new JButton("Update");
 	private JTextField[] avail = new JTextField[14];
@@ -23,10 +22,11 @@ public class SchedulerGUI extends JFrame implements ActionListener {
 	private JPanel entryRow = new JPanel(new GridLayout(2, 7));
 	
 
-	
-
+	//Constructor
 	public SchedulerGUI(String title, int i, int[] sched) {
 		super(title);
+		this.schedule = sched;
+		this.ID = i;
 		setSize(800,160);
 		setDefaultCloseOperation(HIDE_ON_CLOSE);
 		setLayout(new BorderLayout());
@@ -37,10 +37,10 @@ public class SchedulerGUI extends JFrame implements ActionListener {
 		add(entryRow, BorderLayout.CENTER);
 		setListeners();
 		setVisible(true);
-		this.schedule = sched;
-		this.ID = i;
 	}
 	
+	
+	//Panel makers
 	private void createTopRow() {
 		topRow.add(instruct);
 		topRow.add(submitBtn);
@@ -54,6 +54,8 @@ public class SchedulerGUI extends JFrame implements ActionListener {
 		}
 	}
 	
+	
+	//Listeners and Handlers
 	private void setListeners() {
 		submitBtn.addActionListener(this);
 		for(int i = 0;i < 14; i++) {
@@ -73,24 +75,47 @@ public class SchedulerGUI extends JFrame implements ActionListener {
 		if(callingBtn.equalsIgnoreCase("Update")) {
 			createSchedule();
 			save(schedule);
-			createEntryRow(schedule);
+			updateSchedule(this.schedule);
+
 		}
 	}
 	
+	
+	//schedule maker
 	public int[] createSchedule() {
 		int[] schedule = new int[14];
 		for(int i = 0; i < 14; i++) {
 			schedule[i] = Integer.parseInt(avail[i].getText());
-			avail[i].setText("");
 		}
 		return schedule;
 	}
 	
+	
+	
+	//Schedule updater
+	public void updateSchedule(int[] s) {
+		for(int i = 0; i < 14; i++) {
+			avail[i].setText("" + s[i]);
+		}
+	}
+	
+	
+	//file io
 	public void save(int[] schedule) {
 		try { 
-			BufferedWriter s = new BufferedWriter(new FileWriter("Schedule.csv"));
-			s.write(schedule.toString());
-			s.close();
+			this.schedule = createSchedule();
+			BufferedWriter sIn = null;
+			String data = "";
+			for(int i = 0; i < 14; i++) {
+				data = data + schedule[i] + ",";
+			}
+			File file = new File("Schedule.csv");
+			if(!file.exists())
+				file.createNewFile();
+			FileWriter fw = new FileWriter(file);
+			sIn = new BufferedWriter(fw);
+			sIn.write(data);
+			sIn.close();
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
@@ -98,18 +123,21 @@ public class SchedulerGUI extends JFrame implements ActionListener {
 	
 	public int[] load() {
 		try {
-			Scanner s = new Scanner(new FileReader("Schedule.csv"));
-			String[] sc = s.toString().split(",");
+			BufferedReader sOut = new BufferedReader(new FileReader("Schedule.csv"));
+			String[] sc = sOut.readLine().toString().split(",");
 			for(int i = 0; i < 14; i++) {
-				this.schedule[i] = Integer.parseInt(sc[i]);
+				String limit = sc[i];
+				this.schedule[i] = Integer.parseInt(limit);
 			}
-			s.close();
+			sOut.close();
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
 		return this.schedule;
 	}
 	
+	
+	//local toString
 	@Override
 	public String toString() {
 		String sched = null;

@@ -141,7 +141,7 @@ public class UserGUI extends JFrame {
 		boolean userValid = readRecord(filePath, FName, lName, idString);
 		// if return true we show their benefits and etc
 		if (userValid) {
-			FinancesGUI f = new FinancesGUI("finance");
+			FinancesGUI f = new FinancesGUI("Finances", Integer.parseInt(idTextField.getText()));
 			f.setVisible(true);
 
 		}

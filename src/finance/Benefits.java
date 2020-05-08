@@ -1,19 +1,16 @@
 package finance;
 
-import java.io.*;
-
-import employee.*;
-
 public abstract class Benefits {
-	private String benefits;
 	private int ID;
 	private String empFam;
 	private String plan;
 	
+	
+	//Constructors
 	public Benefits(int i) {
 		this.ID = i;
-		this.empFam = null;
-		this.plan = null;
+		this.empFam = "nothing";
+		this.plan = "nothing";
 	}
 	
 	public Benefits(int i, String empFam, String plan) {
@@ -22,8 +19,14 @@ public abstract class Benefits {
 		this.plan = plan;
 	}
 
+	
+	//Getters and Setters
 	public int getID() {
 		return ID;
+	}
+	
+	public void setID(int i) {
+		this.ID = i;
 	}
 	
 	public String getEmpFam() {

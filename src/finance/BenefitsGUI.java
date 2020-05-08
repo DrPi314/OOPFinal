@@ -11,12 +11,16 @@ import java.io.IOException;
 import javax.swing.*;
 
 public class BenefitsGUI extends JFrame implements ActionListener {
+	
+	//Local variables
 	private String[] empFamA = {"Employee", "Employee + Spouse", "Family"};
 	private String[] planA = {"Plan 1", "Plan 2", "Plan 3"};
 	private DentalInsurance dental;
 	private HealthInsurance health;
 	private int ID;
 	
+	
+	//Components
 	private JLabel empFamL = new JLabel("Type of coverage:");
 	private JComboBox empFam = new JComboBox(empFamA);
 	private JLabel planL = new JLabel("Plan Choice:");
@@ -30,8 +34,13 @@ public class BenefitsGUI extends JFrame implements ActionListener {
 	private JPanel topPanel = new JPanel(new BorderLayout());
 	private JPanel displayPanel = new JPanel(new BorderLayout());
 	
+	
+	//Constructor
 	public BenefitsGUI(String title, int i) {
 		super(title);
+		this.ID = i;
+		this.dental = new DentalInsurance(i);
+		this.health = new HealthInsurance(i);
 		setSize(500,200);
 		setLayout(new BorderLayout());
 		setLocationRelativeTo(null);
@@ -43,9 +52,10 @@ public class BenefitsGUI extends JFrame implements ActionListener {
 		addPanelsToFrame();
 		setListeners();
 		setVisible(true);
-		this.ID = i;
 	}
 	
+	
+	//Panel makers
 	private void createChoice() {
 		choicePanel.add(empFamL);
 		choicePanel.add(empFam);
@@ -76,6 +86,8 @@ public class BenefitsGUI extends JFrame implements ActionListener {
 		add(displayPanel, BorderLayout.CENTER);
 	}
 	
+	
+	//Listeners and handlers
 	private void setListeners() {
 		addHealth.addActionListener(this);
 		addDental.addActionListener(this);
@@ -88,14 +100,18 @@ public class BenefitsGUI extends JFrame implements ActionListener {
 			int i = health.getID();
 			String empFam = this.empFam.getSelectedItem().toString();
 			String plan = this.planC.getSelectedItem().toString();
-			health = new HealthInsurance(i, empFam, plan);
+			health.setID(i);
+			health.setEmpFam(empFam);
+			health.setPlan(plan);
 			String benefits = health.toString() + "\n" + dental.toString();
 			planInfo.setText(benefits);
 		} else if(callingBtn.equalsIgnoreCase("Add Dental Plan")) {
 			int i = dental.getID();
 			String empFam = this.empFam.getSelectedItem().toString();
 			String plan = this.planC.getSelectedItem().toString();
-			dental = new DentalInsurance(i, empFam, plan);
+			dental.setID(i);
+			dental.setEmpFam(empFam);
+			dental.setPlan(plan);
 			String benefits = health.toString() + "\n" + dental.toString();
 			planInfo.setText(benefits);
 		} else if(callingBtn.equalsIgnoreCase("Submit")) {
@@ -106,9 +122,11 @@ public class BenefitsGUI extends JFrame implements ActionListener {
 		}
 	}	
 	
+	
+	//file io
 	public void save(String benefits) {
 		try { 
-			BufferedWriter b = new BufferedWriter(new FileWriter("Benefits.exe"));
+			BufferedWriter b = new BufferedWriter(new FileWriter("Benefits.csv"));
 			b.append(benefits);
 			b.close();
 		} catch (IOException e) {
@@ -118,16 +136,20 @@ public class BenefitsGUI extends JFrame implements ActionListener {
 	
 	public void load() {
 		try {
-			BufferedReader b = new BufferedReader(new FileReader("Benefits.exe"));
+			BufferedReader b = new BufferedReader(new FileReader("Benefits.csv"));
 			String benefit = b.readLine();
 			String[] benefits = benefit.split(",");
 			int ID = Integer.parseInt(benefits[0]);
-			String healthEF = benefits[1];
-			String dentalEF = benefits[4];
-			String healthP = benefits[2];
-			String dentalP = benefits[5];
-			dental = new DentalInsurance(ID, dentalEF, dentalP);
-			health = new HealthInsurance(ID, healthEF, healthP);
+			String healthEF = benefits[1].toString();
+			String dentalEF = benefits[4].toString();
+			String healthP = benefits[2].toString();
+			String dentalP = benefits[5].toString();
+			this.dental.setID(ID);
+			this.dental.setEmpFam(dentalEF);
+			this.dental.setPlan(dentalP);
+			health.setID(ID);
+			health.setEmpFam(healthEF);
+			health.setPlan(healthP);
 			b.close();
 		} catch (IOException e) {
 			e.printStackTrace();

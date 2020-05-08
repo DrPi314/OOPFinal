@@ -187,8 +187,8 @@ public class EmployeeGUI extends JFrame implements ActionListener {
 		JButton addButton = new JButton("Submit");
 		addButton.addActionListener(this);
 
-		//JButton financeButton = new JButton("Finances");
-		//financeButton.addActionListener(this);
+		JButton financeButton = new JButton("Finances");
+		financeButton.addActionListener(this);
 
 		actionPane.add(addButton);
 		actionPane.add(displayButton);
@@ -196,6 +196,7 @@ public class EmployeeGUI extends JFrame implements ActionListener {
 		JButton clearButton = new JButton("Clear");
 		clearButton.addActionListener(this);
 		actionPane.add(clearButton);
+		actionPane.add(financeButton);
 		
 
 		console = new JTextArea();
@@ -222,14 +223,11 @@ public class EmployeeGUI extends JFrame implements ActionListener {
 		{
 			newEmployee();
 
-<<<<<<< HEAD
+
 		} else if (callingBtn.equalsIgnoreCase("Finances")) {
 
 			FinancesGUI finances = new FinancesGUI("Finances", Integer.parseInt(this.idComboBox.getSelectedItem().toString()));
 		}
-=======
-		} 
->>>>>>> 4c224c5f88f989b74ce5e18d89c9fdd650b17fb6
 	}
 
 	// method that will match yes and no to true and false respectively
