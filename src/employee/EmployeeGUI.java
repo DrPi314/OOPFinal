@@ -73,7 +73,7 @@ public class EmployeeGUI extends JFrame implements ActionListener {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
-					EmployeeGUI frame = new EmployeeGUI();
+					EmployeeGUI frame = new EmployeeGUI("New Employee");
 					frame.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
@@ -91,7 +91,8 @@ public class EmployeeGUI extends JFrame implements ActionListener {
 	/**
 	 * Create the frame.
 	 */
-	public EmployeeGUI() {
+	public EmployeeGUI(String title) {
+		super(title);
 		setDefaultCloseOperation(JFrame.HIDE_ON_CLOSE);
 		setBounds(100, 100, 450, 300);
 		setLocationRelativeTo(null);
@@ -187,8 +188,7 @@ public class EmployeeGUI extends JFrame implements ActionListener {
 		JButton addButton = new JButton("Submit");
 		addButton.addActionListener(this);
 
-		//JButton financeButton = new JButton("Finances");
-		//financeButton.addActionListener(this);
+		
 
 		actionPane.add(addButton);
 		actionPane.add(displayButton);
@@ -222,15 +222,13 @@ public class EmployeeGUI extends JFrame implements ActionListener {
 		{
 			newEmployee();
 
-<<<<<<< HEAD
-		} else if (callingBtn.equalsIgnoreCase("Finances")) {
 
-			FinancesGUI finances = new FinancesGUI("Finances", Integer.parseInt(this.idComboBox.getSelectedItem().toString()));
-		}
-=======
 		} 
->>>>>>> 4c224c5f88f989b74ce5e18d89c9fdd650b17fb6
-	}
+		}
+
+		
+
+	
 
 	// method that will match yes and no to true and false respectively
 	public boolean checkOptions(String yes) {

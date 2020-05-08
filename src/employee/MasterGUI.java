@@ -55,13 +55,13 @@ public class MasterGUI extends JFrame {
 		@Override
 		public void actionPerformed(ActionEvent e) {
 			if (e.getSource() == newEmployee) {
-				EmployeeGUI employee = new EmployeeGUI();
+				EmployeeGUI employee = new EmployeeGUI("New Employee");
 				employee.setVisible(true);
 
 			}
 
 			else if (e.getSource() == user) {
-				UserGUI user = new UserGUI();
+				UserGUI user = new UserGUI("User");
 				user.setVisible(true);
 
 			}

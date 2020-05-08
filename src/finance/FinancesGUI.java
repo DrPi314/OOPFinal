@@ -68,6 +68,7 @@ public class FinancesGUI extends JFrame implements ActionListener {
 			CertGUI certs = new CertGUI("Employee Certificates", ID, this.emp.getCertifications());
 		} else if(callingBtn.equalsIgnoreCase("Benefits")) {
 			BenefitsGUI benefits = new BenefitsGUI("Employee Benefits", ID);
+			
 		}
 	}
 
