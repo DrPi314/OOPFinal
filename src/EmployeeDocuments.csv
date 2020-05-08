@@ -1,2 +1,2 @@
 firstName,LastName,ID,AGE,Gender,Department,Date,Hours,Volunter,Salary,Rate,
-NewHire [firstName=Abshir, lastName=Mohamed, id=1, age=22, gender=Male, department=IT, dateOfJoining=05/07/2020],2.0,true,4.0, 2.0
+Abshir,Mohamed,1,22,Male,IT,05/07/2020],4.0,true,16.0, 4.0

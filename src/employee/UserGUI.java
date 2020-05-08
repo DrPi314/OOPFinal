@@ -20,8 +20,8 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
-
-
+import java.util.ArrayList;
+import java.util.Scanner;
 
 import javax.swing.JComboBox;
 
@@ -118,48 +118,48 @@ public class UserGUI extends JFrame {
 	}
 
 	private void user() throws IOException {
-		String FName = firstTextField.getName();
-		String lName = lastTextField.getName();
-		String idString = (String) comboBox.getSelectedItem();
-
+		// problem in here
+		String FName = firstTextField.getText();
+		String lName = lastTextField.getText();
+		String idString =  comboBox.getSelectedItem().toString();
+		ArrayList<String> individuals= new ArrayList<String>();
+		individuals.add(FName);
+		individuals.add(lName);
+		individuals.add(idString);
+		for (String string : individuals) {
+			System.out.println(string);
+		}
 		String filePath = ("EmployeeDocuments.csv");
 		
-		String rs=readRecord(filePath,FName);
-		if(rs.equalsIgnoreCase(idString)) {
-			JOptionPane.showMessageDialog(null, "found");
-		}
-		else
-			JOptionPane.showMessageDialog(null, "not found");
+		readRecord(filePath,FName,lName,idString);
+		boolean userValid= readRecord(filePath, FName, lName, idString);
+		if(userValid)
+			JOptionPane.showMessageDialog(null, "open");
+
+	else
+		JOptionPane.showMessageDialog(null, "close");
+		
 
 	}
 
 	// method will open the file and find if the input match what in the file.
 
-	private String readRecord(String filePath,String s) throws IOException  {
+	private boolean readRecord(String filePath, String firstName, String LastName, String id) throws IOException {
 		boolean found = false;
-
-		String resultRow=null;
-		FileReader file = new FileReader(filePath);
-		BufferedReader br=new BufferedReader(file);
-		String line = null;
-		while( (line=br.readLine()) !=null){
-			String[] values=line.split(",");
-			for (int i = 0; i < values.length; i++) {
-				if(values[i].equalsIgnoreCase(s));
-				resultRow=line;
-				break;
-				
-			}
-			
-			
-			
-			
-			
-			
-
+		ArrayList<String> string = new ArrayList<String>();
+		File file = new File(filePath);
+		Scanner scan = new Scanner(file);
+		scan.useDelimiter(";");
+		while (scan.hasNext()) {
+			string.add(scan.next());
 		}
-		br.close();
-		return resultRow;
+		scan.close();
+		for (String persons : string) {
+			if (persons.contains(firstName) && persons.contains(LastName) && persons.contains(id)) 
+				found = true;
+		}
+
+		return found;
 
 	}
 
