@@ -6,6 +6,9 @@ import java.awt.EventQueue;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
+
+import finance.FinancesGUI;
+
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 
@@ -24,14 +27,14 @@ import java.util.ArrayList;
 import java.util.Scanner;
 
 import javax.swing.JComboBox;
+import finance.*;
 
 public class UserGUI extends JFrame {
 
 	private JPanel contentPane;
 	private JTextField firstTextField;
 	private JTextField lastTextField;
-	private String[] id = { "1", "2", "3", "4", "5" };
-	private JComboBox comboBox;
+	private JTextField idTextField;
 	private JTextArea userTextArea;
 	private JButton logButton;
 
@@ -82,8 +85,9 @@ public class UserGUI extends JFrame {
 		JLabel lblNewLabel_1 = new JLabel("ID");
 		panel.add(lblNewLabel_1);
 
-		comboBox = new JComboBox(id);
-		panel.add(comboBox);
+		idTextField=new JTextField();
+		panel.add(idTextField);
+		idTextField.setColumns(10);
 
 		JPanel panel_1 = new JPanel();
 		contentPane.add(panel_1);
@@ -117,28 +121,33 @@ public class UserGUI extends JFrame {
 		}
 	}
 
+	// this a method that when u click log in is invoke
 	private void user() throws IOException {
-		// problem in here
+		// getting info from user
 		String FName = firstTextField.getText();
 		String lName = lastTextField.getText();
-		String idString =  comboBox.getSelectedItem().toString();
-		ArrayList<String> individuals= new ArrayList<String>();
+		String idString = idTextField.getText();
+		// creating arrayList and addding all the info we get from user
+		ArrayList<String> individuals = new ArrayList<String>();
 		individuals.add(FName);
 		individuals.add(lName);
 		individuals.add(idString);
-		for (String string : individuals) {
-			System.out.println(string);
-		}
+		// file path
 		String filePath = ("EmployeeDocuments.csv");
-		
-		readRecord(filePath,FName,lName,idString);
-		boolean userValid= readRecord(filePath, FName, lName, idString);
-		if(userValid)
-			JOptionPane.showMessageDialog(null, "open");
+		// method that gonna check if the user info matched our record and return true
+		// if matches
+		readRecord(filePath, FName, lName, idString);
 
-	else
-		JOptionPane.showMessageDialog(null, "close");
-		
+		boolean userValid = readRecord(filePath, FName, lName, idString);
+		// if return true we show their benefits and etc
+		if (userValid) {
+			FinancesGUI f = new FinancesGUI("finance");
+			f.setVisible(true);
+
+		}
+
+		else
+			JOptionPane.showMessageDialog(null, "Employee not found");
 
 	}
 
@@ -155,7 +164,7 @@ public class UserGUI extends JFrame {
 		}
 		scan.close();
 		for (String persons : string) {
-			if (persons.contains(firstName) && persons.contains(LastName) && persons.contains(id)) 
+			if (persons.contains(firstName) && persons.contains(LastName) && persons.contains(id))
 				found = true;
 		}
 
